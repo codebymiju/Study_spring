@@ -59,7 +59,7 @@
 <body>
 	<header>
 		<!-- login, join 표시 영역 -->
-		<jsp:include page="/inc/top.jsp"></jsp:include>
+		<jsp:include page="../inc/top.jsp"></jsp:include>
 	</header>
 	<!-- 12/05 02-(1) 조회결과 표시(본문) + 파일 다운로드 가능하도록-->
 	<!-- 게시판 상세내용 보기 -->

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.google.protobuf.Value;
 import com.itwillbs.mvc_board.service.MemberService;
 import com.itwillbs.mvc_board.vo.MemberVO;
 
@@ -67,6 +68,14 @@ public class MemberController {
 			
 		}
 		
+	}
+	
+	// 23/01/17 추가 (하이퍼링크니까 GetMapping)	
+	@GetMapping(value = "/MemberLoginForm.me")
+	public String login() {
+		
+		// views 폴더에서 주소가 시작하니 폴더명/폴더 작성
+		return "member/member_login_form";
 	}
 	
  }// MemberController

@@ -66,7 +66,7 @@
 <body>
 	<header>
 		<!-- login, join 표시 영역 -->
-		<jsp:include page="inc/top.jsp"></jsp:include>
+		<jsp:include page="../inc/top.jsp"></jsp:include>
 	</header>
 	<!-- 게시판 리스트 -->
 	<section id="listForm">

@@ -31,5 +31,7 @@
 		<property name="mapperLocations" value="classpath:/**/*Mapper.xml"></property>
 	</bean>
 	
+	<!-- 23/01/17 MyBatis 연동에 필요한  -->
+	<mybatis-spring:scan base-package="com.itwillbs.mvc_board"/>
 		
 </beans>

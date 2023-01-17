@@ -30,7 +30,7 @@
 <body>
 	<header>
 		<!-- login, join 표시 영역 -->
-		<jsp:include page="inc/top.jsp"></jsp:include>
+		<jsp:include page="../inc/top.jsp"></jsp:include>
 	</header>
 	<!-- 12/05 3-(1) 삭제시 BoardDeletePro.bo로 이동-->
 	<h2>게시판 글 삭제</h2>

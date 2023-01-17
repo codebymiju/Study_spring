@@ -26,7 +26,7 @@
 	<!-- 세션 아이디가 null 이 아닐 경우 메인페이지로 돌려보내기 -->
 	<header>
 		<!-- Login, Join 링크 표시 영역(inc/top.jsp 페이지 삽입) -->
-		<jsp:include page="/inc/top.jsp"></jsp:include>
+		<jsp:include page="../inc/top.jsp"></jsp:include>
 	</header>
 	<h1>로그인</h1>
 	<form action="MemberLoginPro.me" method="post">

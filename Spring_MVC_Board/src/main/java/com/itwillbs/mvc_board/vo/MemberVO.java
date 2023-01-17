@@ -21,6 +21,8 @@ public class MemberVO {
 	private String id;
 	private String passwd;
 	private String email;
+	private String email1; /*23/01/17 추가*/
+	private String email2;
 	private String gender;
    	private Date date; // java.sql
    	private String auth_status; // 23/01/11 추가 
@@ -49,6 +51,26 @@ public class MemberVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	/*23/01/17 추가------------------------*/
+	public String getEmail1() {
+		return email1;
+	}
+	public void setEmail1(String email1) {
+		this.email1 = email1;
+	}
+	public String getEmail2() {
+		return email2;
+	}
+	public void setEmail2(String email2) {
+		this.email2 = email2;
+		
+		// 1. email 파라미터로 결합하는 과정을 자동으로 처리하기 위해
+		// email2 저장 시 email1 + email2 값도 함께 email 변수에 저장
+		// 계정+도메인 = email에 넣어주기
+//		email = email1 + "@" + email2;
+		
+	}
+	/*23/01/17 추가------------------------*/
 	public String getGender() {
 		return gender;
 	}
