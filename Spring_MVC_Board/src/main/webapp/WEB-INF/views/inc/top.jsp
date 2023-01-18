@@ -22,10 +22,10 @@
   	</c:when>
   	
 	<c:otherwise>
-  		| <a href="MemberLoginPro.me?id=${sessionScope.sId}">${sessionScope.sId}님</a> 
+  		| <a href="MemberInfo.me?id=${sessionScope.sId }">${sessionScope.sId}님</a> 
   	  	| <a href="javascript:logout()">logout</a>
 		<c:if test='${sessionScope.sId eq "admin"}'>
-	  		| <a href="MemberList.me">관리자페이지</a>
+	  		| <a href="AdminMain.me">관리자페이지</a>
 		</c:if>		
 	</c:otherwise>  
   </c:choose>

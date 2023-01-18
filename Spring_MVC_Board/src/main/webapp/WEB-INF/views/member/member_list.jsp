@@ -77,22 +77,22 @@
 		<tr id="tr_top">
 			<td width="50px">이름</td>
 			<td width="50px">아이디</td>
-			<td width="50px">비밀번호</td>
 			<td width="100px">이메일</td>
-			<td width="50px">성별</td>
 			<td width="50px">가입일</td>
+			<td width="50px"></td>
 		</tr>
 		<c:forEach var="member" items="${memberList}">
 			<tr>
 				<td>${member.name}</td>
 				<td>${member.id }</td>
-				<td>${member.passwd }</td>
 				<td>${member.email }</td>
-				<td>${member.gender }</td>
 				<td><fmt:formatDate value="${member.date}" pattern="yy-MM-dd"/></td>
+			<!-- 12/12 추가사항 + 수정, 삭제 버튼 추가로 회원정보 수정, 삭제 가능하도록--> 
+			  <td>
+			  	<input type="button" value="상세정보조회" onclick="location.href='MemberInfo.me?id=${member.id}'">
+			  	<input type="button" value="삭제" onclick="location.href='MemberUpdate.me?id=${member.id}'">
+			  </td> 
 			</tr>
-			<!-- 12/12 추가사항 + 수정, 삭제 버튼 추가로 회원정보 수정, 삭제 가능하도록 
-			  location.href='MemberUpdate.me?id=${member.id}' -->
 		</c:forEach>
 	</table>
 	</section>

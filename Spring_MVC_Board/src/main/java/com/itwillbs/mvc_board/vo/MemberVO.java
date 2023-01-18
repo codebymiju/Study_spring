@@ -50,6 +50,16 @@ public class MemberVO {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+		
+		//---------------------------- 23/01/18 추가
+		// 전체 이메일을 결합된 상태로 email 멤버변수에 저장 시
+		// "@" 기호 기준 문자열 분리를 통해 email1, email2에 각각 저장 작업 추가
+		
+//		email = email1 + "@" + email2;
+//		String[] arrEmail = email.split("@");
+		email1 = email.split("@")[0];
+		email2 = email.split("@")[1];
+		
 	}
 	/*23/01/17 추가------------------------*/
 	public String getEmail1() {
@@ -92,9 +102,11 @@ public class MemberVO {
 	
 	@Override
 	public String toString() {
-		return "MemberVO [name=" + name + ", id=" + id + ", passwd=" + passwd + ", email=" + email + ", gender="
-				+ gender + ", date=" + date + ", auth_status=" + auth_status + "]";
+		return "MemberVO [name=" + name + ", id=" + id + ", passwd=" + passwd + ", email=" + email + ", email1="
+				+ email1 + ", email2=" + email2 + ", gender=" + gender + ", date=" + date + ", auth_status="
+				+ auth_status + "]";
 	}
+	
 	
 	
 	

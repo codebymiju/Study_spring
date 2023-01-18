@@ -1,5 +1,7 @@
 package com.itwillbs.mvc_board.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,34 @@ public class MemberService {
 		
 		return mapper.insertMember(member);
 	}
+
+	// 23/01/18
+	// BCryptPasswordEncoder 활용한 로그인 작업 - getPasswd()
+	// -> 파라미터 : 아이디 / 리턴타입 : String
+	// -> 회원 정보 수정에 필요한 비밀번호 조회 시에도 활용 가능
+	public String getPasswd(String id) {
+		
+		return mapper.selectPasswd(id);
+	}
+
+	// 회원 상세 정보 조회 작업
+	public MemberVO getMemberInfo(String id) {
+		
+		return mapper.selectMemberInfo(id);
+	}
+	
+	// 회원 목록 조회 작업
+	public List<MemberVO> getMemberList() {
+		
+		return mapper.selectMemberList();
+	}
+
+	// 회원 정보 수정 작업 
+	public int modifyMemberInfo(MemberVO member, String newPasswd) {
+	
+		return mapper.updateMemberInfo(member, newPasswd);
+	}
+
  
 	 
 }
