@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 23/01/17  -->
+<!-- mapper 태그 내에 namespace 속성 지정 후 Mapper 인터페이스 위치 지정 (오타 시 오류 안나니 주의) -->
+<mapper namespace="com.itwillbs.mvc_board.mapper.BoardMapper">
+	
+	<insert id="insertBoard">
+		<!-- 글번호 max로 추가하는 작업 설 이후 -->
+	
+		INSERT 
+			INTO board
+			VALUES (
+				#{board_num} + 1
+				, #{board_name}
+				, #{board_pass}
+				, #{board_subject}
+				, #{board_content}
+				, #{board_file}
+				, #{board_real_file}
+				, #{board_num} + 1
+				,0
+				,0
+				,0
+				,now();			
+			)
+	</insert>
+</mapper>
