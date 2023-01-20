@@ -4,7 +4,8 @@ import com.itwillbs.mvc_board.vo.BoardVO;
 
 public interface BoardMapper {
 
-	// 1. 게시글 등록 작업 추상메서드 선언
+	// 1. 게시물 등록
+	// => 파라미터 : BoardVO 객체    리턴타입 : int
 	int insertBoard(BoardVO board);
-
+	
 }

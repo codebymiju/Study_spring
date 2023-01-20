@@ -1,0 +1,158 @@
+소스코드 빌드(Build)
+- 소스코드를 컴퓨터에서 실행 가능한 가공물로 변환하는 과정 또는 결과물
+- 빌드를 수행하기 위해 빌드 도구(Build tool)가 필요함
+  => 프로젝트 생성, 테스트, 배포 등의 작업을 위한 도구
+  => 대표적인 빌드 도구 : Ant, Maven, Gradle
+
+
+Maven(메이븐)
+- 자바 프로젝트 관리 도구
+- 필요한 라이브러리를 pom.xml 파일에 기술하면
+  자동 다운로드 및 Build path 추가까지 수행해준다!
+- 간단한 설정만으로 배포 관리가 가능함
+- POM(Project Object Model)
+
+===============================================================================
+[ 스프링 프레임워크(Spring Framework) ]
+- 자바 플랫폼을 구현하기 위한 오픈 소스 프레임워크
+  => 프레임워크? 프로그램을 구현하는데 필요한 라이브러리(클래스) 및 개발 방식 모음
+  => 다양한 애플리케이션 개발을 위해 필요한 코드들의 자동화
+- 동적 웹사이트 개발을 위한 서비스 제공
+  (또한, JSP 가 없어도 동적 서비스 구현 가능 = Spring Boot 필요)
+- 스프링 프레임워크에서도 동적 웹 구현 시 MVC 패턴(Spring MVC) 사용
+- 기존 동적 웹 애플리케이션을 스프링으로 구현 시 훨씬 압축된 코드를 사용하여 간편하게 구현 가능
+  => 단, 압축된 코드 사용을 위한 준비(설정) 작업이 많음
+- 대한민국 정부 관련 프로젝트 진행하는 기업 등에서 주로 사용하는
+  '전자정부 표준 프레임워크' 의 기반이 되는 프레임워크
+- 스프링 프레임워크 사용한 개발 방법
+  1) 이클립스 상에서 스프링 관련 애드온(Add-on) 설치
+  2) 이클립스 기반으로 제작한 IDE 인 Spring Tools Suite(STS) 설치
+=============================================================================================
+[ 스프링 프로젝트 개발 과정 ]
+1. 프로젝트 생성(Spring Legacy Project 의 Spring MVC Project)
+2. web.xml(= 배포서술자) 의 서블릿 관련 설정 내용
+<servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+=> servlet-mapping 태그가 루트(/) 요청 받아 appServlet 이름의 servlet 태그 항목을 찾아 연결(= 매핑)
+=> /WEB-INF/spring/appServlet/servlet-context.xml 파일에 지정된 파라미터를 사용
+  	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+   => 컨트롤러에서 return 문을 통해 Dispatch 방식으로 이동할 뷰페이지(파일명)를 이름만 지정하면
+      해당 이름 앞에 "prefix" 에 해당하는 문자열을, 해당 이름 뒤에 "suffix" 에 해당하는 문자열을
+      자동으로 결합하여 이동할 경로 문자열를 생성해 준다.
+      (ex. return "home"; 지정 시 "/WEB-INF/views/home.jsp" 문자열이 자동 생성됨)
+=============================================================================================
+[ 스프링 기본 설정 파일 ]
+1. xml 파일별 용도
+1-1) web.xml
+- 웹 서비스 요청 관련 기본 설정이 기록됨
+- 스프링의 각 설정 파일(xml) 들의 위치 등을 설정
+- 클라이언트 요청이 가장 먼저 도달하는 설정 파일
+
+1-2) root-context.xml
+- 웹(JSP)과 무관한 자바빈 설정(Service, Repository 등)
+- 비즈니스 로직 설정(서버를 운영하는데 필요한 설정 내용 등을 포함(DB 관련, 보안 관련))
+  => 주로, database-context.xml 등의 별도의 xml 파일을 생성하여 DB 내용을 분리하는 등
+     각 역할에 맞는 xml 파일을 생성하여 분리하여 관리함
+- 외부 클래스(JDBC 라이브러리 등)에 접근 시 <bean> 태그 사용
+  => 공통으로 사용할 자바빈 객체 설정
+
+1-3) servlet-context.xml
+- 웹(JSP)과 관련 있는 자바빈 설정(Controller, MultipartResolver 등) 내용들을 포함
+- 화면 표시를 위해 필요한 설정 내용들을 포함(인코딩 등)
+- 웹 상에서  클라이언트 요청을 받기 위한 설정 포함
+- URL 관련 설정
+---------------------------------------------------------------------------------
+[ 필수 기본 라이브러리 - pom.xml 에 추가(변경) 필요한 사항 ]
+1. properties 태그 버전 변경
+<properties>
+		<java-version>11</java-version>  => 현재 JDK 버전에 맞게 변경
+		<org.springframework-version>5.3.24</org.springframework-version>  => 스프링 버전에 맞게 변경
+		<org.aspectj-version>1.6.10</org.aspectj-version>
+		<org.slf4j-version>1.6.6</org.slf4j-version>
+	</properties>
+
+2. 자바 버전 변경
+<build> -> <plugins> -> <plugin> 태그 중 <artifactId>maven-compiler-plugin</artifactId> 태그 찾아
+<configuration>
+	<source>11</source>  => 현재 JDK 버전에 맞게 변경
+   <target>11</target>  => 현재 JDK 버전에 맞게 변경
+   <compilerArgument>-Xlint:all</compilerArgument>
+   <showWarnings>true</showWarnings>
+   <showDeprecation>true</showDeprecation>
+</configuration>
+
+3. 라이브러리 추가 및 변경
+=> 변경 사항이 적용되면 Maven Dependencies 항목에 모든 라이브러리가 표시되나
+   만약, 적용되지 않은 사항이 있으면 프로젝트 우클릭 - Maven - Update project 클릭하여 업데이트 수행
+
+3-1) 서블릿 버전 변경
+mvnrepository.com 의 Home » javax.servlet » javax.servlet-api » 4.0.0 을 찾아 라이브러리 변경
+< 기존 라이브러리 >
+		<!-- Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+
+< 변경 후 라이브러리 >
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>4.0.0</version>
+		    <scope>provided</scope>
+		</dependency>
+
+
+=============================================================================
+[ POST 방식 한글 인코딩 변경 ]
+- web.xml 내에 필터링 설정을 위한 태그 사용(<web-app> 태그 내에 위치)
+- 서블릿 매핑 작업과 거의 유사한 태그 사용(servlet -> filter 로 바뀜)
+
+	<!-- POST 방식 파라미터에 대한 한글 등의 인코딩 처리를 위한 필터 설정 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+===================================================================================
+뷰페이지에서 사용되는 자원들은 webapp/resources 폴더 내에 위치시키고
+뷰페이지에서 접근 시 "${pageContext.request.contextPath }/resources/" 경로를 통해
+필요한 자원에 접근해야한다!
+ex) resources 폴더 내의 css 폴더에 있는 default.css 파일을 포함시키는 경우
+<link href="${pageContext.request.contextPath }/resources/css/default.css" rel="stylesheet" type="text/css">
+===================================================================================
+
+
+
+
+
+
+
+

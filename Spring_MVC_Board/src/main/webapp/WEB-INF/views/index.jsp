@@ -1,22 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- 외부 CSS 가져오기 -->
-<%-- <%=request.getContextPath() %>  <c:url value ="/">/사용 시 프로젝트 명에 따라 자동적으로 반영됨--%> 
+<%-- <link href="<%=request.getContextPath() %>/resources/css/default.css" rel="stylesheet" type="text/css"> --%>
 <link href="${pageContext.request.contextPath }/resources/css/default.css" rel="stylesheet" type="text/css">
-<script src="${pageContext.request.contextPath }/resources/js/jquery-3.6.3.js"></script>
-<script type="text/javascript">
-	$(function() {
-		// 아이디 입력값 변경되면 정규표현식 검증 수행
-		
-	});
-
-</script>
 </head>
 <body>
 	<header>

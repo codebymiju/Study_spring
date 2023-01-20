@@ -5,8 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>MVC 게시판</title>
-<!-- 외부 CSS 가져오기 -->
-<link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 	#writeForm {
 		width: 500px;
@@ -41,15 +39,10 @@
 </style>
 </head>
 <body>
-	<header>
-		<!-- Login, Join 링크 표시 영역 -->
-		<jsp:include page="../inc/top.jsp"></jsp:include>
-	</header>
 	<!-- 게시판 등록 -->
 	<section id="writeForm">
 		<h1>게시판 글 등록</h1>
-		<!-- 파일 업로드 기능 사용 위해 enctype 속성 설정 => cos.jar 라이브러리 필요 -->
-		<form action="BoardWritePro.bo" name="boardForm" method="post" enctype="multipart/form-data">
+		<form action="" name="boardForm" method="post">
 			<table>
 				<tr>
 					<td class="td_left"><label for="board_name">글쓴이</label></td>
@@ -74,16 +67,7 @@
 				<tr>
 					<td class="td_left"><label for="board_file">파일 첨부</label></td>
 					<!-- 파일 첨부 형식은 input 태그의 type="file" 속성 사용 -->
-					<td class="td_right">
-<!-- 						<input type="file" name="file" /> -->
-						<!-- 복수개의 파일을 각각의 입력폼으로 처리할 경우(name 속성 동일하게) -->		
-						<input type="file" name="files" />
-						<br><input type="file" name="files" />
-						<br><input type="file" name="files" />
-						
-						<!-- 복수개의 파일을 하나의 입력폼으로 처리할 경우(mutliple 속성 필요) -->		
-<!-- 						<input type="file" name="files" multiple="multiple" /> -->
-					</td>
+					<td class="td_right"><input type="file" name="board_file" required="required" /></td>
 				</tr>
 			</table>
 			<section id="commandCell">

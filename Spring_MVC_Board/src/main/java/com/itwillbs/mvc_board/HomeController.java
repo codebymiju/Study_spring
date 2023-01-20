@@ -1,5 +1,7 @@
 package com.itwillbs.mvc_board;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -22,9 +24,18 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		
-		// 루트 요청이 들어오면 index.jsp로 이동
 		return "index";
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+

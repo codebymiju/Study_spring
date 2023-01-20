@@ -11,9 +11,20 @@ public class BoardService {
 	@Autowired
 	private BoardMapper mapper;
 
-	// 1. 게시글 등록작업 수행
+	// 게시물 등록 작업 수행
+	// => 파라미터 : BoardVO 객체    리턴타입 : int(insertCount)
 	public int registBoard(BoardVO board) {
 		return mapper.insertBoard(board);
 	}
-	 
 }
+
+
+
+
+
+
+
+
+
+
+
