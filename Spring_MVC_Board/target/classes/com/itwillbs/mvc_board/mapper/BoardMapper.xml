@@ -1,54 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<!-- 23/01/17  -->
-<!-- mapper 태그 내에 namespace 속성 지정 후 Mapper 인터페이스 위치 지정 (오타 시 오류 안나니 주의) -->
 <mapper namespace="com.itwillbs.mvc_board.mapper.BoardMapper">
-	
-	<!-- 23/01/25 -->
+	<!-- 게시물 등록 작업을 위한 insert 태그 -->
 	<!-- 
-		새 글 번호 계산을 위해 기존 게시물의 가장 큰 글 번호(board_num)를 조회 후
-		글 번호 존재 시 +1 > 새 글 번호로 설정 후 insert 구문에 사용
-		-> insert 태그 내에서 <selectKey> 태그 사용
-		
-		<기본 문법>
-		
-		<insert id = "xxx">
-			<selectKey keyProperty = "값을 저장할 변수명" resultType="조회 결과 타입" order="실행 시점">
-			  실행할 SELECT 구문
-		 	</selectKey>
-		</insert>
-		
-		=> keyProperty 속성 : 조회 데이터를 저장할 VO 객체의 실제 변수명 => 주의!!!!
-		                      (나중에 #{변수명} 으로 사용 가능)
-		=> resultType 속성 : SELECT 구문 실행 시 기대되는 조회 결과(리턴값)의 타입
-		                     (integer, string 등)
-		=> order 속성 : 해당 SELECT 구문 실행할 시점
-		                1) BEFORE : INSERT 구문 실행 전 SELECT 구문 실행
-		                2) AFTER : INSERT 구문 실행 후 SELECT 구문 실행
+	새 글 번호 계산을 위해 기존 게시물의 가장 큰 글 번호(board_num)를 조회한 후
+	글 번호가 존재할 경우 +1 값을 새 글 번호로 설정 후 INSERT 구문에 사용
+	=> insert 태그 내에서 <selectKey> 태그를 사용하여 SELECT 구문을 실행하고
+	   SELECT 구문을 통해 조회된 결과값을 INSERT 구문에 반영 가능
+	
+	< 기본 문법 >
+	<insert id="xxx"> 
+		<selectKey keyProperty="값을 저장할 변수명" resultType="조회 결과 타입" order="실행 시점">
+			실행할 SELECT 구문
+		</selectKey>
+		...INSERT 구문...
+	</insert>
+	=> keyProperty 속성 : 조회 데이터를 저장할 VO 객체의 실제 변수명 => 주의!!!!
+	                      (나중에 #{변수명} 으로 사용 가능)
+	=> resultType 속성 : SELECT 구문 실행 시 기대되는 조회 결과(리턴값)의 타입
+	                     (integer(int), string 등)
+	=> order 속성 : 해당 SELECT 구문 실행할 시점
+	                1) BEFORE : INSERT 구문 실행 전 SELECT 구문 실행
+	                2) AFTER : INSERT 구문 실행 후 SELECT 구문 실행
 	
 	-->
-		
 	<insert id="insertBoard">
-		<!-- INSERT 구문 실행 전 수행할 SELECT 구문 -->
-		<selectKey keyProperty="board_num" resultType="integer" order="BEFORE">
+		<!-- INSERT 구문 실행 전 수행할 SELECT 구문을 기술 -->
+		<selectKey keyProperty="board_num" resultType="int" order="BEFORE">
+			<!-- 가장 큰 글번호(board_num) 조회 -->
 			SELECT MAX(board_num) FROM board
 		</selectKey>
-		<!-- SELECT 구문에서 실행된 조회 결과(가장 큰 글번호) > board_num 변수 저장 -->
-		INSERT 
+		<!-- SELECT 구문에서 실행된 조회 결과(가장 큰 글번호)가 board_num 변수에 저장됨 -->
+		INSERT
 			INTO board
 			VALUES (
 				#{board_num} + 1
-				, #{board_name}
-				, #{board_pass}
-				, #{board_subject}
-				, #{board_content}
-				, #{board_file}
-				, #{board_real_file}
-				, #{board_num} + 1
+				,#{board_name}			
+				,#{board_pass}			
+				,#{board_subject}			
+				,#{board_content}			
+				,#{board_file}			
+				,#{board_real_file}
+				,#{board_num} + 1
 				,0
 				,0
 				,0
-				,now()			
+				,now()		
 			)
 	</insert>
 	
@@ -58,14 +55,14 @@
 			FROM board -- 이후 작업 분기 일어남
 		<!-- 
 		조건에 따른 SQL 구문을 실행하기 위해서는
-		choose, when, otherwise 태그를 사용하여 복수개의 조건 판별(if ~ else if 문 구조)
-		 -->
-		<!-- 1. 검색어(keyword)가 널스트링이 아닐 때 검색어 추가 WHERE 절 수행, 아니면 생략 
-			-> 조건이 하나일 경우 if 태그를 사용하여 단일 조건 판별 -->
+		choose, when, otherwise 태그를 사용하여 복수개의 조건 판별(if ~ else if 문 구조) 
+		-->	
+		<!-- 1. 검색어(keyword) 가 널스트링이 아닐 때 검색어 추가 WHERE 절 수행, 아니면 생략 -->
+		<!-- => 조건이 하나일 경우 if 태그를 사용하여 단일 조건 판별(if 문 구조) -->
 		<if test="!keyword.equals('')">
-			WHERE 
-			<!-- 2. 검색타입(searchType)에 따른 WHERE 대상 변경 
-				-> 조건이 복수개이므로 choose 태그 사용-->
+			WHERE
+			<!-- 2. 검색타입(searchType) 에 따른 WHERE 대상 변경 -->
+			<!-- => 조건이 복수개이므로 choose 태그 사용 -->
 			<choose>
 				<when test="searchType.equals('subject')">
 					board_subject LIKE '%${keyword}%'
@@ -74,13 +71,13 @@
 					board_content LIKE '%${keyword}%'
 				</when>
 				<when test="searchType.equals('subject_content')">
-					board_subject LIKE '%${keyword}%'
+					board_subject LIKE '%${keyword}%' 
 					OR board_content LIKE '%${keyword}%'
 				</when>
 				<when test="searchType.equals('name')">
 					board_name LIKE '%${keyword}%'
 				</when>
-			</choose>			
+			</choose>		
 		</if>
 		ORDER BY
 			board_re_ref DESC
@@ -93,11 +90,11 @@
 	<!-- 전체 게시물 목록 갯수 조회하는 select 태그 -->
 	<select id="selectBoardListCount" resultType="int">
 		SELECT COUNT(*)
-			FROM board
+			FROM board -- 이후 작업 분기 일어남
 			<if test="!keyword.equals('')">
-				WHERE 
-				<!-- 2. 검색타입(searchType)에 따른 WHERE 대상 변경 
-					-> 조건이 복수개이므로 choose 태그 사용-->
+				WHERE
+				<!-- 2. 검색타입(searchType) 에 따른 WHERE 대상 변경 -->
+				<!-- => 조건이 복수개이므로 choose 태그 사용 -->
 				<choose>
 					<when test="searchType.equals('subject')">
 						board_subject LIKE '%${keyword}%'
@@ -106,29 +103,48 @@
 						board_content LIKE '%${keyword}%'
 					</when>
 					<when test="searchType.equals('subject_content')">
-						board_subject LIKE '%${keyword}%'
+						board_subject LIKE '%${keyword}%' 
 						OR board_content LIKE '%${keyword}%'
 					</when>
 					<when test="searchType.equals('name')">
 						board_name LIKE '%${keyword}%'
 					</when>
-				</choose>			
+				</choose>		
 			</if>
 	</select>
 	
-	<!-- 게시물 상세 정보 조회 -->
+	<!-- 게시물 1개 정보를 조회하는 select 태그 -->
 	<select id="selectBoard" resultType="com.itwillbs.mvc_board.vo.BoardVO">
-		SELECT * 
+		SELECT *
 			FROM board
-			WHERE board_num = #{board_num}
+			WHERE
+				board_num = #{board_num}
 	</select>
 	
-	<!-- 게시물 조회 수 증가 -->
+	<!-- 조회수 증가하는 update 태그 -->
 	<update id="updateReadcount">
 		UPDATE board
-		 	SET 
-		 		board_readcount = board_readcount + 1
-		 	WHERE 
-		 		board_num = #{board_num}
+			SET
+				board_readcount = board_readcount + 1
+			WHERE
+				board_num = #{board_num}
 	</update>
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
