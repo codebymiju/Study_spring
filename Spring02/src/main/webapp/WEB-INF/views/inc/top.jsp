@@ -22,7 +22,7 @@
 		<%-- 로그인 상태일 경우 아이디 표시, Logout 링크 표시 --%>
 		<c:otherwise>
 			| <a href="MemberInfo.me">${sessionScope.sId }</a>님 
-			| <a href="logout.me">Logout</a>
+			| <a href="javascript:logout()">Logout</a>
 			
 			<%-- 만약, 로그인 된 세션 아이디가 "admin" 일 경우 관리자페이지 링크(MemberList.me) 추가 --%>
 			<c:if test='${sessionScope.sId eq "admin" }'>

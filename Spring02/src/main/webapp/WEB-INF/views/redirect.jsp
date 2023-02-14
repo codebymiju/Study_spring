@@ -8,13 +8,22 @@
 </head>
 <body>
 	<header>
+		<!-- inc/top.jsp 페이지 삽입 -->
 		<jsp:include page="inc/top.jsp"></jsp:include>
 	</header>
 	<article>
 		<h1>redirect.jsp</h1>
-		<h3>이름(name 파라미터 값) : ${param.name} </h3>
-		<h3>나이(age 파라미터 값) : ${param.age }</h3>
-		<hr>
+		<h3>name 파라미터값 : ${param.name }</h3>
+		<h3>age 파라미터값 : ${param.age }</h3>
 	</article>
 </body>
 </html>
+
+
+
+
+
+
+
+
+

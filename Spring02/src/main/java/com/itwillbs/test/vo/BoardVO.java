@@ -41,7 +41,6 @@ public class BoardVO {
 	private int board_readcount;
 	private Timestamp board_date; // java.sql.TimeStamp
 	
-	
 	public BoardVO() {
 		super();
 	}
@@ -63,6 +62,9 @@ public class BoardVO {
 		this.board_readcount = board_readcount;
 		this.board_date = board_date;
 	}
+
+
+
 	public int getBoard_num() {
 		return board_num;
 	}

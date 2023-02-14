@@ -90,13 +90,14 @@
 			<version>1</version>
 		</dependency>
 				
-		<!-- Servlet 4.0으로 변경 -->
+		<!-- Servlet(4.0 으로 변경) -->
 		<dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>javax.servlet-api</artifactId>
 		    <version>4.0.0</version>
 		    <scope>provided</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>

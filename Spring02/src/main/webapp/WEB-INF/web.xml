@@ -30,8 +30,8 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-	<!-- 23/01/09  -->
-	<!-- Post 방식 파라미터에 대한 한글 등의 인코딩 처리를 위한 필터 설정 -->
+	<!-- ================================================================ -->
+	<!-- POST 방식 파라미터에 대한 한글 등의 인코딩 처리를 위한 필터 설정 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -40,8 +40,22 @@
 			<param-value>UTF-8</param-value>
 		</init-param>
 	</filter>
+	
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/*</url-pattern> <!-- * : 모든 요청에 대한 -->
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 </web-app>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -8,12 +8,13 @@
 </head>
 <body>
 	<header>
+		<!-- inc/top.jsp 페이지 삽입 -->
 		<jsp:include page="inc/top.jsp"></jsp:include>
 	</header>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+	<h1>
+		Hello world!  
+	</h1>
+	
+	<P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>
